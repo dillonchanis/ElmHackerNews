@@ -1,0 +1,98 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: #3e396b;
+  background: #f8faff;
+  line-height: 1.6;
+}
+
+a {
+  color: #8994c6;
+}
+
+a:hover {
+  color: #8198ff;
+}
+
+h1, h2, h3,
+.h1, .h2, .h3 {
+  color: inherit;
+  font-weight: 300;
+  line-height: 40px;
+}
+
+.h1 {
+  font-size: 34px;
+  margin-bottom: 40px;
+}
+
+.h2 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.section {
+  background: inherit;
+}
+
+.text-muted {
+  color: #8994c6;
+}
+
+.footer {
+  color: #fff;
+  background: #3e396b;
+}
+
+.story-item {
+  background-color: #fff;
+  margin-bottom: 25px;
+  padding: 30px;
+  border-radius: 6px;
+}
+
+.story-item .h2 {
+  font-weight: 400;
+}
+
+.elevation {
+  box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.elevation:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 16px 32px 0 rgba(62,57,107,0.28), 0 0 0 transparent;
+}
+
+.button {
+  padding: 0 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 400;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+}
+
+.button.is-primary {
+  border: none;
+  color: #fff;
+  background-image: linear-gradient(80deg, #ff8100, #e7c033);
+}
+
+.button-shadow {
+  box-shadow: 0 2px 6px 0 rgba(231, 217, 51, 0.4);
+  transition: box-shadow 0.2s ease;
+}
+
+.button-shadow:hover {
+  box-shadow: 0 4px 12px rgba(5,15,44,0.5);
+}
+
+.footer .footer-link {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
