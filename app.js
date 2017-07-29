@@ -8557,6 +8557,121 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _elm_lang$http$Native_Http = function() {
 
 
@@ -8918,6 +9033,46 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
+var _user$project$Helpers$alert = F2(
+	function (msg, alertMessage) {
+		var _p0 = alertMessage;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('notification is-danger elevation'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('delete'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(msg),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(''),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(_p0._0),
+						_1: {ctor: '[]'}
+					}
+				});
+		} else {
+			return _elm_lang$html$Html$text('');
+		}
+	});
+
 var _user$project$HackerNews$viewStoryPostInfo = function (story) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -9000,7 +9155,26 @@ var _user$project$HackerNews$viewSingleStory = function (story) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(story.title),
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'https://news.ycombinator.com/item?id=',
+									_elm_lang$core$Basics$toString(story.id))),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$target('_blank'),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(story.title),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9164,45 +9338,18 @@ var _user$project$HackerNews$viewHeader = A2(
 			}),
 		_1: {ctor: '[]'}
 	});
-var _user$project$HackerNews$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$section,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('section'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('container'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _user$project$HackerNews$viewHeader,
-							_1: {
-								ctor: '::',
-								_0: _user$project$HackerNews$viewStoryList(model.stories),
-								_1: {ctor: '[]'}
-							}
-						}),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _user$project$HackerNews$viewFooter,
-				_1: {ctor: '[]'}
-			}
-		});
+var _user$project$HackerNews$translateHttpErrorToMessage = function (error) {
+	var _p0 = error;
+	switch (_p0.ctor) {
+		case 'NetworkError':
+			return 'The server is experiencing issues or downtime. Please try again later.';
+		case 'BadStatus':
+			return _elm_lang$core$Basics$toString(_p0._0.status);
+		case 'BadPayload':
+			return A2(_elm_lang$core$Basics_ops['++'], 'Decoding failure: ', _p0._0);
+		default:
+			return _elm_lang$core$Basics$toString(error);
+	}
 };
 var _user$project$HackerNews$apiTopStoriesUrl = 'https://hacker-news.firebaseio.com/v0/topstories.json';
 var _user$project$HackerNews$apiGetItem = function (id) {
@@ -9214,9 +9361,9 @@ var _user$project$HackerNews$apiGetItem = function (id) {
 			_elm_lang$core$Basics$toString(id),
 			'.json'));
 };
-var _user$project$HackerNews$Model = F3(
-	function (a, b, c) {
-		return {stories: a, appState: b, storyIds: c};
+var _user$project$HackerNews$Model = F4(
+	function (a, b, c, d) {
+		return {stories: a, appState: b, storyIds: c, alertMessage: d};
 	});
 var _user$project$HackerNews$Story = F8(
 	function (a, b, c, d, e, f, g, h) {
@@ -9226,7 +9373,16 @@ var _user$project$HackerNews$storyDecoder = A9(
 	_elm_lang$core$Json_Decode$map8,
 	_user$project$HackerNews$Story,
 	A2(_elm_lang$core$Json_Decode$field, 'by', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode$field, 'descendants', _elm_lang$core$Json_Decode$int),
+	_elm_lang$core$Json_Decode$oneOf(
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$core$Json_Decode$field, 'descendants', _elm_lang$core$Json_Decode$int),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$succeed(0),
+				_1: {ctor: '[]'}
+			}
+		}),
 	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
 	_elm_lang$core$Json_Decode$oneOf(
 		{
@@ -9255,12 +9411,59 @@ var _user$project$HackerNews$storyDecoder = A9(
 				_1: {ctor: '[]'}
 			}
 		}));
+var _user$project$HackerNews$Loading = {ctor: 'Loading'};
 var _user$project$HackerNews$Reading = {ctor: 'Reading'};
 var _user$project$HackerNews$ViewingAll = {ctor: 'ViewingAll'};
 var _user$project$HackerNews$initialModel = {
 	stories: {ctor: '[]'},
 	appState: _user$project$HackerNews$ViewingAll,
-	storyIds: {ctor: '[]'}
+	storyIds: {ctor: '[]'},
+	alertMessage: _elm_lang$core$Maybe$Nothing
+};
+var _user$project$HackerNews$CloseAlert = {ctor: 'CloseAlert'};
+var _user$project$HackerNews$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$section,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('section'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('container'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _user$project$HackerNews$viewHeader,
+							_1: {
+								ctor: '::',
+								_0: A2(_user$project$Helpers$alert, _user$project$HackerNews$CloseAlert, model.alertMessage),
+								_1: {
+									ctor: '::',
+									_0: _user$project$HackerNews$viewStoryList(model.stories),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _user$project$HackerNews$viewFooter,
+				_1: {ctor: '[]'}
+			}
+		});
 };
 var _user$project$HackerNews$TopStory = function (a) {
 	return {ctor: 'TopStory', _0: a};
@@ -9282,44 +9485,62 @@ var _user$project$HackerNews$fetchTopStories = function (topStoriesIds) {
 };
 var _user$project$HackerNews$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'Top') {
-			if (_p0._0.ctor === 'Ok') {
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _elm_lang$core$Platform_Cmd$batch(
-						_user$project$HackerNews$fetchTopStories(_p0._0._0))
-				};
-			} else {
-				var _p1 = A2(_elm_lang$core$Debug$log, 'ERROR: ', _p0._0._0);
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-			}
-		} else {
-			if (_p0._0.ctor === 'Ok') {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'Top':
+				if (_p1._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: _elm_lang$core$Platform_Cmd$batch(
+							_user$project$HackerNews$fetchTopStories(_p1._0._0))
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								alertMessage: _elm_lang$core$Maybe$Just(
+									_user$project$HackerNews$translateHttpErrorToMessage(_p1._0._0))
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'TopStory':
+				if (_p1._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								stories: A2(
+									_elm_lang$core$List$append,
+									_elm_lang$core$List$singleton(_p1._0._0),
+									model.stories)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								alertMessage: _elm_lang$core$Maybe$Just(
+									_user$project$HackerNews$translateHttpErrorToMessage(_p1._0._0))
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			default:
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{
-							stories: A2(
-								_elm_lang$core$List$append,
-								_elm_lang$core$List$singleton(_p0._0._0),
-								model.stories)
-						}),
+						{alertMessage: _elm_lang$core$Maybe$Nothing}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			} else {
-				var _p2 = A2(_elm_lang$core$Debug$log, 'ERROR: ', _p0._0._0);
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
-					{
-						ctor: '::',
-						_0: _elm_lang$core$Platform_Cmd$none,
-						_1: {ctor: '[]'}
-					});
-			}
 		}
 	});
 var _user$project$HackerNews$Top = function (a) {

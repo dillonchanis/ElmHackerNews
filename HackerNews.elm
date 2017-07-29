@@ -4,6 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
 import Json.Decode as Decode exposing (Decoder, oneOf, field, succeed)
+import Helpers exposing (..)
 
 
 -- MODELS
@@ -12,12 +13,14 @@ import Json.Decode as Decode exposing (Decoder, oneOf, field, succeed)
 type AppState
     = ViewingAll
     | Reading
+    | Loading
 
 
 type alias Model =
     { stories : List Story
     , appState : AppState
     , storyIds : List Int
+    , alertMessage : Maybe String
     }
 
 
@@ -38,6 +41,7 @@ initialModel =
     { stories = []
     , appState = ViewingAll
     , storyIds = []
+    , alertMessage = Nothing
     }
 
 
@@ -62,6 +66,7 @@ apiTopStoriesUrl =
 type Msg
     = Top (Result Http.Error (List Int))
     | TopStory (Result Http.Error Story)
+    | CloseAlert
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -71,21 +76,32 @@ update msg model =
             ( model, Cmd.batch (fetchTopStories topStories) )
 
         Top (Err error) ->
-            let
-                _ =
-                    Debug.log "ERROR: " error
-            in
-                ( model, Cmd.none )
+            ( { model | alertMessage = Just (translateHttpErrorToMessage error) }, Cmd.none )
 
         TopStory (Ok story) ->
             ( { model | stories = List.append (List.singleton story) model.stories }, Cmd.none )
 
         TopStory (Err error) ->
-            let
-                _ =
-                    Debug.log "ERROR: " error
-            in
-                model ! [ Cmd.none ]
+            ( { model | alertMessage = Just (translateHttpErrorToMessage error) }, Cmd.none )
+
+        CloseAlert ->
+            ( { model | alertMessage = Nothing }, Cmd.none )
+
+
+translateHttpErrorToMessage : Http.Error -> String
+translateHttpErrorToMessage error =
+    case error of
+        Http.NetworkError ->
+            "The server is experiencing issues or downtime. Please try again later."
+
+        Http.BadStatus response ->
+            (toString response.status)
+
+        Http.BadPayload message _ ->
+            "Decoding failure: " ++ message
+
+        _ ->
+            (toString error)
 
 
 
@@ -96,7 +112,11 @@ storyDecoder : Decoder Story
 storyDecoder =
     Decode.map8 Story
         (field "by" Decode.string)
-        (field "descendants" Decode.int)
+        (Decode.oneOf
+            [ (field "descendants" Decode.int)
+            , succeed 0
+            ]
+        )
         (field "id" Decode.int)
         (Decode.oneOf
             [ (field "kids" (Decode.list Decode.int))
@@ -172,7 +192,7 @@ viewStoryPostInfo story =
 viewSingleStory : Story -> Html msg
 viewSingleStory story =
     li [ class "story-item elevation" ]
-        [ h2 [ class "h2" ] [ text story.title ]
+        [ h2 [ class "h2" ] [ a [ href ("https://news.ycombinator.com/item?id=" ++ (toString story.id)), target "_blank" ] [ text story.title ] ]
         , viewStoryPostInfo story
         ]
 
@@ -186,11 +206,16 @@ viewStoryList stories =
         ul [] storyList
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view model =
     div []
         [ section [ class "section" ]
-            [ div [ class "container" ] [ viewHeader, viewStoryList model.stories ] ]
+            [ div [ class "container" ]
+                [ viewHeader
+                , alert CloseAlert model.alertMessage
+                , viewStoryList model.stories
+                ]
+            ]
         , viewFooter
         ]
 

@@ -33,6 +33,15 @@ h1, h2, h3,
   line-height: 24px;
 }
 
+.h2 a {
+  color: inherit;
+  transition: color 0.25s ease;
+}
+
+.h2 a:hover {
+  color: #9169c1;
+}
+
 .section {
   background: inherit;
 }
@@ -90,6 +99,12 @@ h1, h2, h3,
 
 .button-shadow:hover {
   box-shadow: 0 4px 12px rgba(5,15,44,0.5);
+}
+
+.notification.is-danger {
+  color: #a94442;
+  border-left: 4px solid #ff4f81; 
+  background: rgba(255,79,129,0.1);
 }
 
 .footer .footer-link {
